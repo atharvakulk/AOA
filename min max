@@ -1,0 +1,57 @@
+#include <stdio.h> 
+#include <stdlib.h> 
+ 
+void find_max_min(int arr[], int start, int end, int *max_val, int *min_val) { 
+    if (start == end)  
+    { 
+        *max_val = *min_val = arr[start]; 
+    }  
+    else if (end - start == 1)  
+    { 
+        *max_val = (arr[start] > arr[end]) ? arr[start] : arr[end]; 
+        *min_val = (arr[start] < arr[end]) ? arr[start] : arr[end]; 
+    }  
+    else  
+    { 
+        int mid = (start + end) / 2; 
+ 
+        int max_left, min_left, max_right, min_right; 
+        find_max_min(arr, start, mid, &max_left, &min_left); 
+        find_max_min(arr, mid + 1, end, &max_right, &min_right); 
+ 
+        *max_val = (max_left > max_right) ? max_left : max_right; 
+        *min_val = (min_left < min_right) ? min_left : min_right; 
+    } 
+} 
+ 
+int main()  
+{ 
+    int array_size; 
+    printf("Enter the size of the array: "); 
+    scanf("%d", &array_size); 
+ 
+    int *my_array = (int *)malloc(array_size * sizeof(int)); 
+    if (my_array == NULL)  
+    { 
+        printf("Memory allocation failed\n"); 
+        return 1;  
+    } 
+ 
+    printf("Enter %d elements of the array: ", array_size); 
+    for (int i = 0; i < array_size; i++)  
+    { 
+        scanf("%d", &my_array[i]); 
+    } 
+ 
+    int max_value, min_value; 
+    find_max_min(my_array, 0, array_size - 1, &max_value, &min_value); 
+ 
+    printf("Array: "); 
+    for (int i = 0; i < array_size; i++)  
+    { 
+        printf("%d ", my_array[i]); 
+    } 
+printf("\nMaximum value: %d\n", max_value); 
+printf("Minimum value: %d\n", min_value); 
+return 0; 
+}
