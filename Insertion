@@ -1,4 +1,4 @@
-Insertion Sort
+
 #include <stdio.h> 
  
 void insertionsort(int arr[], int n) 
