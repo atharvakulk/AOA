@@ -1,0 +1,460 @@
+Selection Sort
+
+#include <stdio.h> 
+#include <conio.h>
+#include <stdlib.h>
+void swap(int *x, int *y) 
+{ 
+    int temp = *x; 
+    *x = *y; 
+    *y = temp; 
+} 
+void selectionsort(int a[], int n) 
+{ 
+    int i, j, min; 
+    for (i = 0; i < n - 1; i++) 
+    { 
+        min = i; 
+        for (j = i + 1; j < n; j++) 
+        { 
+            if (a[j] < a[min]) {
+                min = j; }
+        } 
+        if (min != i) 
+            swap(&a[min], &a[i]); 
+    } 
+} 
+int main() 
+{ 
+    int i, n; 
+    printf("Enter the size of the array: "); 
+    scanf("%d", &n); 
+    int a[n]; 
+    printf("Enter %d elements of the array: ", n); 
+    for (i = 0; i < n; i++) 
+    { 
+        scanf("%d", &a[i]); 
+    } 
+selectionsort(a, n); 
+printf("Selection Sort\n"); 
+printf("Sorted array: "); 
+for (i = 0; i < n; i++) 
+{ 
+printf("%d ", a[i]);
+}
+getch();
+return 0; 
+} 
+
+
+Insertion Sort
+
+
+#include <stdio.h> 
+ 
+void insertionsort(int a[], int n) 
+{ 
+    int i, j, key; 
+    for (i = 1; i < n; i++) 
+    { 
+        key = a[i]; 
+        j = i - 1; 
+        while (j >= 0 && a[j] > key) 
+        { 
+            a[j + 1] = a[j]; 
+            j = j - 1; 
+        } 
+        a[j + 1] = key; 
+    } 
+} 
+ 
+int main() 
+{ 
+    int i, n; 
+    printf("Enter the size of the array: "); 
+    scanf("%d", &n); 
+    int a[n]; 
+    printf("Enter %d elements of the array: ", n); 
+    for (i = 0; i < n; i++) 
+    { 
+        scanf("%d", &a[i]); 
+    } 
+    insertionsort(a, n);  
+    printf("Insertion Sort\n"); 
+    printf("Sorted array: "); 
+    for (i = 0; i < n; i++) 
+    { 
+        printf("%d ", a[i]); 
+    } 
+    return 0; 
+}
+
+
+
+Merge Sort
+
+#include <stdio.h> 
+#include <stdlib.h> 
+ 
+
+void merge(int arr[], int l, int m, int r) { 
+    int i, j, k; 
+    int n1 = m - l + 1; 
+    int n2 = r - m; 
+ 
+  
+    int L[n1], R[n2]; 
+ 
+    
+    for (i = 0; i < n1; i++) 
+        L[i] = arr[l + i]; 
+    for (j = 0; j < n2; j++) 
+        R[j] = arr[m + 1 + j]; 
+ 
+    i = 0;  
+    j = 0;  
+    k = l; 
+    while (i < n1 && j < n2) { 
+        if (L[i] <= R[j]) { 
+            arr[k] = L[i]; 
+            i++; 
+        } else { 
+            arr[k] = R[j]; 
+            j++; 
+        } 
+        k++; 
+    } 
+ 
+    
+    while (i < n1) { 
+        arr[k] = L[i]; 
+        i++; 
+        k++; 
+    } 
+ 
+  
+    while (j < n2) { 
+        arr[k] = R[j]; 
+        j++; 
+        k++; 
+    } 
+} 
+ 
+void mergeSort(int arr[], int l, int r)  
+{ 
+    if (l < r)  
+    { 
+        int m = l + (r - l) / 2; 
+ 
+        
+        mergeSort(arr, l, m); 
+        mergeSort(arr, m + 1, r); 
+ 
+        merge(arr, l, m, r);    
+    } 
+} 
+ 
+int main()  
+{ 
+    int n; 
+    printf("Enter the size of the array: "); 
+    scanf("%d", &n); 
+    int arr[n]; 
+    printf("Enter %d elements of the array: ", n); 
+    for (int i = 0; i < n; i++)  
+    { 
+        scanf("%d", &arr[i]); 
+    } 
+ 
+    mergeSort(arr, 0, n - 1); 
+    printf("Merge Sort\n"); 
+    printf("Sorted array: "); 
+    for (int i = 0; i < n; i++)  
+    { 
+        printf("%d ", arr[i]); 
+    } 
+    return 0; 
+}
+
+
+
+Quick Sort
+
+#include <stdio.h> 
+ 
+void swap(int *a, int *b)  
+{ 
+    int temp = *a; 
+    *a = *b; 
+    *b = temp; 
+} 
+ 
+int partition(int arr[], int low, int high)    
+{ 
+    int pivot = arr[high]; 
+    int i = low - 1; 
+ 
+    for (int j = low; j < high; j++)  
+    { 
+        if (arr[j] < pivot)  
+        { 
+            i++; 
+            swap(&arr[i], &arr[j]); 
+        } 
+    } 
+    swap(&arr[i + 1], &arr[high]); 
+    return i + 1; 
+} 
+ 
+void quicksort(int arr[], int low, int high)  
+{ 
+    if (low < high)  
+    { 
+        int pi = partition(arr, low, high);   
+        quicksort(arr, low, pi - 1); 
+        quicksort(arr, pi + 1, high); 
+    } 
+} 
+ 
+int main()  
+{ 
+    int n; 
+    printf("Enter the size of the array: "); 
+    scanf("%d", &n); 
+    int arr[n]; 
+    printf("Enter elements of the array: "); 
+    for (int i = 0; i < n; i++)  
+    { 
+        scanf("%d", &arr[i]); 
+    } 
+ 
+    quicksort(arr, 0, n - 1); 
+ 
+    printf("Quick Sort\n"); 
+    printf("Sorted array: "); 
+    for (int i = 0; i < n; i++)  
+    { 
+        printf("%d ", arr[i]); 
+    } 
+    return 0; 
+} 
+
+Knapsack Problem
+
+#include <stdio.h>
+
+int main() {
+    float weight[50], profit[50], ratio[50], Totalvalue = 0, temp, capacity;
+    int n, i, j;
+
+    printf("Enter the number of items: ");
+    scanf("%d", &n);
+
+    printf("Enter weight and profit for each item:\n");
+    for (i = 0; i < n; i++) {
+        printf("Item[%d]: ", i);
+        scanf("%f %f", &weight[i], &profit[i]);
+    }
+
+    printf("Enter the capacity of knapsack: ");
+    scanf("%f", &capacity);
+
+    for (i = 0; i < n; i++)
+        ratio[i] = profit[i] / weight[i];
+    for (i = 0; i < n; i++) {
+        for (j = i + 1; j < n; j++) {
+            if (ratio[i] < ratio[j]) {
+                temp = ratio[j];
+                ratio[j] = ratio[i];
+                ratio[i] = temp;
+
+                temp = weight[j];
+                weight[j] = weight[i];
+                weight[i] = temp;
+
+                temp = profit[j];
+                profit[j] = profit[i];
+                profit[i] = temp;
+            }
+        }
+    }
+
+    printf("Knapsack problem using greedy algorithm:\n");
+    for (i = 0; i < n; i++) {
+        if (weight[i] > capacity)
+            break;
+        else {
+            Totalvalue += profit[i];
+            capacity -= weight[i];
+        }
+    }
+
+    
+    if (i < n)
+        Totalvalue += ratio[i] * capacity;
+
+    printf("\nThe maximum value is %f\n", Totalvalue);
+
+    return 0;
+}
+
+
+Kruskal Algo
+
+#include <stdio.h> 
+#include <stdlib.h> 
+
+int comparator( const void* p1, const void* p2) 
+{ 
+const int(*x)[3] = p1; 
+const int(*y)[3] = p2; 
+
+	return (*x)[2] - (*y)[2]; 
+} 
+
+void makeSet(int parent[], int rank[], int n) 
+{ 
+	for (int i = 0; i < n; i++) { 
+		parent[i] = i; 
+		rank[i] = 0; 
+	} 
+} 
+
+int findParent(int parent[], int component) 
+{ 
+	if (parent[component] == component) 
+		return component; 
+
+	return parent[component] 
+		= findParent(parent, parent[component]); 
+} 
+
+
+void unionSet(int u, int v, int parent[], int rank[], int n) 
+{ 
+	
+	u = findParent(parent, u); 
+	v = findParent(parent, v); 
+
+	if (rank[u] < rank[v]) { 
+		parent[u] = v; 
+	} 
+	else if (rank[u] > rank[v]) { 
+		parent[v] = u; 
+	} 
+	else { 
+		parent[v] = u; 
+
+		rank[u]++; 
+	} 
+} 
+
+void kruskalAlgo(int n, int edge[n][3]) 
+{ 
+
+	qsort(edge, n, sizeof(edge[0]), comparator); 
+
+	int parent[n]; 
+	int rank[n]; 
+
+	makeSet(parent, rank, n); 
+
+	int minCost = 0; 
+
+	printf( 
+		"Following are the edges in the constructed MST\n");
+		printf("Edge\t Weight \n");
+	for (int i = 0; i < n; i++) { 
+		int v1 = findParent(parent, edge[i][0]); 
+		int v2 = findParent(parent, edge[i][1]); 
+		int wt = edge[i][2]; 
+
+	
+		if (v1 != v2) { 
+			unionSet(v1, v2, parent, rank, n); 
+			minCost += wt; 
+			printf("%d -- %d == %d\n", edge[i][0], 
+				edge[i][1], wt); 
+		} 
+	} 
+
+	printf("Minimum Cost Spanning Tree: %d\n", minCost); 
+} 
+
+int main() 
+{ 
+	int edge[5][3] = { { 0, 1, 10 }, 
+					{ 0, 2, 6 }, 
+					{ 0, 3, 5 }, 
+					{ 1, 3, 15 }, 
+					{ 2, 3, 4 } }; 
+
+	kruskalAlgo(5, edge);
+
+	return 0;
+}
+
+
+
+Prim's Algo
+
+#include <stdio.h> 
+#include <stdbool.h> 
+#include <limits.h> 
+ 
+#define V 5 
+ 
+int minKey(int key[], bool mstSet[]) { 
+    int min = INT_MAX, min_index; 
+    for (int v = 0; v < V; v++) { 
+        if (mstSet[v] == false && key[v] < min) { 
+            min = key[v], min_index = v; 
+        } 
+    } 
+    return min_index; 
+} 
+ 
+int printMST(int parent[], int graph[V][V]) { 
+    int totalcost=0;
+    printf("Edge \tWeight\n"); 
+    for (int i = 1; i < V; i++) { 
+        printf("%d - %d \t%d \n", parent[i], i, graph[i][parent[i]]); 
+       totalcost += graph[i][parent[i]];
+    } 
+    printf("Total Cost of Minimum Spanning Tree: %d\n", totalcost);
+} 
+ 
+void primMST(int graph[V][V]) { 
+    int parent[V]; 
+    int key[V]; 
+    bool mstSet[V]; 
+    for (int i = 0; i < V; i++) { 
+        key[i] = INT_MAX, mstSet[i] = false; 
+    } 
+ 
+    key[0] = 0; 
+    parent[0] = -1; 
+ 
+    for (int count = 0; count < V - 1; count++) { 
+        int u = minKey(key, mstSet); 
+        mstSet[u] = true; 
+        for (int v = 0; v < V; v++) { 
+            if (graph[u][v] && mstSet[v] == false && graph[u][v] < key[v]) { 
+                parent[v] = u, key[v] = graph[u][v]; 
+            } 
+        } 
+    } 
+    printMST(parent, graph); 
+} 
+ 
+int main() { 
+    int graph[V][V]; 
+    printf("Enter the adjacency matrix of the graph (5x5):\n"); 
+    for (int i = 0; i < V; i++) { 
+        for (int j = 0; j < V; j++) { 
+            scanf("%d", &graph[i][j]); 
+        } 
+    } 
+primMST(graph);
+return 0;
+}
